@@ -22,6 +22,11 @@ function formSubmit(event){
     }else if (event.type === "submit"){
         cityName = searchInputEl.val()
     }
+    
+    if (!cityName.length){
+        alert("Please enter a city name.")
+        return
+    }
 
     console.log(cityName)
     geoData(cityName)
