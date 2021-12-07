@@ -38,19 +38,21 @@ function geoData(city){
 
     fetch(requestUrl)
         .then(function(response){
-            console.log(response)
-            return response.json();
-        })
+            if (response.ok) {
+            return response.json()
         .then(function(data){
             
-            console.log(data)
-            console.log(data[0].lat)
-            console.log(data[0].lon)
             searchHistory(data[0].name)
             // working with the data we provide
             weatherData(data[0].lat, data[0].lon)
-
+            })
+        } else {
+            throw Error('Error: ' + response.statusText);
+        }
         })
+        .catch(function (Error) {
+          alert('Unable to connect to Openweathermap Geocoding API.');
+        });
         // Api parameters
             // q=Name of city
                 // Name of the City
@@ -71,15 +73,21 @@ function weatherData(lat, lon){
 
     fetch(requestUrl)
         .then(function(response){
+            if (response.ok) {
             console.log(response)
-            return response.json();
-        })
+            return response.json()
         .then(function(data){
             
             console.log(data)
 
-           
+            })
+        } else {
+            throw Error('Error: ' + response.statusText);
+        }
         })
+        .catch(function (Error) {
+          alert('Unable to connect to Openweathermap One Call API.');
+        });
         // API parameters
             // Latitude
     
