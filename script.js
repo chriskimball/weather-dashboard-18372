@@ -42,14 +42,12 @@ function geoData(city){
             return response.json();
         })
         .then(function(data){
-            // we only have the data in this .then() menthod.
             
-            // console.log(data)
             console.log(data)
+            console.log(data[0].lat)
+            console.log(data[0].lon)
             // working with the data we provide
-            
-            // 
-            // weatherData( /* provide lat and long data here*/ )
+            weatherData(data[0].lat, data[0].lon)
 
         })
         // Api parameters
@@ -65,6 +63,38 @@ function geoData(city){
         
             // appid={my custom api key}
 }
+
+function weatherData(lat, lon){
+    
+    var requestUrl=`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&units=imperial&appid=${apiKey}`
+
+    fetch(requestUrl)
+        .then(function(response){
+            console.log(response)
+            return response.json();
+        })
+        .then(function(data){
+            
+            console.log(data)
+
+           
+        })
+        // API parameters
+            // Latitude
+    
+            // Longitude
+    
+            // appid
+    
+            // units= imperial
+    
+                // configuring the units
+                    // Unit of measurement that is returned
+    
+            // exclude= minutely,hourly
+}
+
+
 
 // Render html elements to page
 
