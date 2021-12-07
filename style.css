@@ -13,7 +13,27 @@ nav{
     align-items:center;
     border:1px solid black;
 }
+
+nav div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 main{
     height:80%;
     margin-top:0px;
+}
+
+#search-input{
+    padding-bottom:10px;
+    border-bottom:1px solid black;
+}
+
+#current-forecast{
+    background-color: aquamarine;
+}
+
+.box:not(:last-child){
+    margin-bottom: 0rem;
 }
