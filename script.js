@@ -46,6 +46,7 @@ function geoData(city){
             console.log(data)
             console.log(data[0].lat)
             console.log(data[0].lon)
+            searchHistory(data[0].name)
             // working with the data we provide
             weatherData(data[0].lat, data[0].lon)
 
@@ -102,7 +103,22 @@ function weatherData(lat, lon){
 
     // Render 5 day forecast
 
+    
     // Add search history button
+function searchHistory(cityAttr) {
+    
+    for (i=0; i < searchHistoryEl[0].childElementCount; i++){
+        if (searchHistoryEl[0].children[i].dataset.city === cityAttr){
+            console.log("match")
+            return
+        }
+    }
+    
+    var htmlTemplate = `
+    <button class="button is-dark is-fullwidth m-2" data-city="${cityAttr}">${cityAttr}</button>        
+        `
+    searchHistoryEl.append(htmlTemplate)
+}
 
 
 // Event listeners
