@@ -1,0 +1,19 @@
+html {
+    height:100%;
+}
+
+body{
+    height:100%;
+}
+
+nav{
+    height:20%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border:1px solid black;
+}
+main{
+    height:80%;
+    margin-top:0px;
+}
