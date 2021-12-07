@@ -12,15 +12,69 @@
 <body>
     <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
         <div class="content has-text-centered">
-          <h1 class="is-vcentered">Weather App</h1>
+          <h1 class="is-vcentered is-size-1">Weather App</h1>
         </div>
       </nav>
-    <main id="main-container" class="columns">
-        <section id="input-container" class="column is-one-quarter-desktop">
-
+    <main id="main-container" class="columns is-flex-wrap-wrap">
+        <section id="input-container" class="column is-full-mobile is-one-third-tablet is-one-quarter-widescreen">
+            <div id="search-input">
+                <label class="is-size-3" for="">Search for a City:</label>
+                <input class="input has-background-grey-light mx-2 my-2" type="text" placeholder="Text input">
+                <button class="button is-dark is-fullwidth mx-2 mb-2">Button</button>
+            </div>
+            <div id="search-history">
+                <button class="button is-dark is-fullwidth m-2" data-cityName="seattle">Button</button>
+            </div>
         </section>
-        <section id="data-container" class="column is-three-quarters-desktop">
-
+        <section id="data-container" class="column is-full-mobile is-two-thirds-tablet is-three-quarters-widescreen">
+            <div id="current-forecast" class="box is-flex is-flex-direction-column">
+                <h2>{City} {Date} {weather icon}</h2>
+                <p>Temp: {temperature}</p>
+                <p>Wind: {windspeed}</p>
+                <p>Humidity: {humidity%}</p>
+                <p>UV Index: {uv index}</p>
+            </div>
+            <div>
+                <!-- class is-visible or is-invisible -->
+                <h2 class="is-size-3">5 day forecast:</h2>
+                <div id="daily-forecast" class="box is-flex-tablet">
+                    <div class="box is-flex-direction-column has-background-grey-lighter">
+                        <h3>{date}</h3>
+                        <p>{weather icon}</p>
+                        <p>Temp:{temperature}</p>
+                        <p>Wind:{windspeed}</p>
+                        <p>Humidity:{humidity%}</p>
+                    </div>
+                    <div class="box is-flex-direction-column has-background-grey-lighter">
+                        <h3>{date}</h3>
+                        <p>{weather icon}</p>
+                        <p>Temp:{temperature}</p>
+                        <p>Wind:{windspeed}</p>
+                        <p>Humidity:{humidity%}</p>
+                    </div>
+                    <div class="box is-flex-direction-column has-background-grey-lighter">
+                        <h3>{date}</h3>
+                        <p>{weather icon}</p>
+                        <p>Temp:{temperature}</p>
+                        <p>Wind:{windspeed}</p>
+                        <p>Humidity:{humidity%}</p>
+                    </div>
+                    <div class="box is-flex-direction-column has-background-grey-lighter">
+                        <h3>{date}</h3>
+                        <p>{weather icon}</p>
+                        <p>Temp:{temperature}</p>
+                        <p>Wind:{windspeed}</p>
+                        <p>Humidity:{humidity%}</p>
+                    </div>
+                    <div class="box is-flex-direction-column has-background-grey-lighter">
+                        <h3>{date}</h3>
+                        <p>{weather icon}</p>
+                        <p>Temp:{temperature}</p>
+                        <p>Wind:{windspeed}</p>
+                        <p>Humidity:{humidity%}</p>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>  
 
