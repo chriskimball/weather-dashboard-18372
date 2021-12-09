@@ -18,7 +18,7 @@ function formSubmit(event){
     if(event.type === "click"){
         cityName = event.target.dataset.city
     }else if (event.type === "submit"){
-        cityName = searchInputEl.val()
+        cityName = searchInputEl.val().trim()
     }
     
     if (!cityName.length){
@@ -134,7 +134,7 @@ function renderCurrentForecast(data, cityN) {
     
     var htmlTemplate = `
         <div id="current-forecast" class="box is-flex is-flex-direction-column">
-            <h2>${cityN} ${moment(weatherInfo.current.dt, "X").format("M/D/YYYY")} <img src="${iconURL}"></h2>
+            <h2>${cityN} ${moment(weatherInfo.current.dt, "X").format("M/D/YYYY")} <img src="${iconURL}" alt="${weatherInfo.current.weather[0].description}"></h2>
             <p>Temp: ${weatherInfo.current.temp}</p>
             <p>Wind: ${weatherInfo.current.wind_speed}</p>
             <p>Humidity: ${weatherInfo.current.humidity}</p>
@@ -165,7 +165,7 @@ function renderDailyForecast(data) {
         htmlTemplate += `
             <div class="box is-flex-direction-column has-background-grey-lighter column">
                 <h3>${moment(weatherInfo.daily[i].dt,"X").format("M/D/YYYY")}</h3>
-                <img src="${iconURL}">
+                <img src="${iconURL}" alt="${weatherInfo.daily[i].weather[0].description}">
                 <p>Temp:${weatherInfo.daily[i].temp.day}</p>
                 <p>Wind:${weatherInfo.daily[i].wind_speed}</p>
                 <p>Humidity:${weatherInfo.daily[i].humidity}</p>
