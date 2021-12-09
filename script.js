@@ -128,7 +128,7 @@ function searchHistory(cityAttr) {
     }
     
     var htmlTemplate = `
-    <button class="button is-dark is-fullwidth m-2" data-city="${cityAttr}">${cityAttr}</button>        
+    <button class="button is-dark is-fullwidth" data-city="${cityAttr}">${cityAttr}</button>        
         `
     searchHistoryEl.append(htmlTemplate)
 }

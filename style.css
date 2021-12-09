@@ -4,6 +4,15 @@ html {
 
 body{
     height:100%;
+        /* background-image: url('http://i.stack.imgur.com/kx8MT.gif');
+        background-size: cover;
+        
+        
+        
+        height: 100vh;
+        padding:0;
+        margin:0; */
+
 }
 
 nav{
