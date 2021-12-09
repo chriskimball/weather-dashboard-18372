@@ -84,7 +84,7 @@ function weatherData(lat, lon, cityN){
         .then(function(data){
                 console.log(data)
                 renderCurrentForecast(data, cityN)
-            
+                renderDailyForecast(data)
             })
         } else {
             throw Error('Error: ' + response.statusText);
@@ -136,10 +136,7 @@ function searchHistory(cityAttr) {
 function renderCurrentForecast(data, cityN) {
 
     var weatherInfo = data
-    console.log(cityN)
-    // console.log(weatherInfo.current.weather[0].icon)
     var iconURL = weatherIcon(weatherInfo.current.weather[0].icon)
-    console.log(iconURL)
     
     var htmlTemplate = `
         <div id="current-forecast" class="box is-flex is-flex-direction-column">
@@ -162,7 +159,47 @@ function renderCurrentForecast(data, cityN) {
     console.log(data)
 };
 
+function renderDailyForecast(data) {
 
+    var weatherInfo = data
+    
+    var htmlTemplate = ""
+    for (i=1; i <=5; i++){
+        console.log(i)
+        var iconURL = weatherIcon(weatherInfo.daily[i].weather[0].icon)
+        
+        htmlTemplate += `
+            <div class="box is-flex-direction-column has-background-grey-lighter column">
+                <h3>${weatherInfo.daily[i].dt}</h3>
+                <img src="${iconURL}">
+                <p>Temp:${weatherInfo.daily[i].temp.day}</p>
+                <p>Wind:${weatherInfo.daily[i].wind_speed}</p>
+                <p>Humidity:${weatherInfo.daily[i].humidity}</p>
+            </div>    
+            `
+    }
+    console.log(htmlTemplate)
+
+    var htmlContainer = `
+    <div class="p-5">
+        <h2 class="is-size-3">5 day forecast:</h2>
+        <div id="daily-forecast" class="p-5 is-flex-tablet columns">
+            ${htmlTemplate}
+        </div>
+    </div>
+    `
+    console.log(htmlContainer)
+    forecastContainerEl.append(htmlContainer)
+
+    // console.log("data.current.dt",data.current.dt)
+    // console.log("data.current.weather.description ",""+data.current.weather[0].description)
+    // console.log("data.current.weather.icon ","http://openweathermap.org/img/wn/"+data.current.weather[0].icon+"@2x.png")
+    // console.log("data.current.temp",data.current.temp)
+    // console.log("data.current.wind_speed",data.current.wind_speed)
+    // console.log("data.current.humidity",data.current.humidity)
+    // console.log("data.current.humidity",data.current.uvi)
+    // console.log(data)
+};
 
 function weatherIcon(iconCode){
     var iconURL = "http://openweathermap.org/img/wn/"+ iconCode +"@2x.png"
