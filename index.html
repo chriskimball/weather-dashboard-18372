@@ -7,18 +7,17 @@
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
-<!-- https://bulma.io/documentation/helpers/flexbox-helpers/ -->
 <body>
     <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
         <div class="content has-text-centered">
-          <h1 class="is-vcentered is-size-1">Weather App</h1>
+            <h1 class="is-vcentered is-size-1">Weather App</h1>
         </div>
       </nav>
     <main id="main-container" class="container">
         <div class="columns is-flex-wrap-wrap">
             <section id="input-container" class="column is-full-mobile is-one-third-tablet is-one-quarter-widescreen">
                 <form id="search-input">
-                    <label class="is-size-3" for="">Search for a City:</label>
+                    <label class="is-size-3" for="search-value">Search for a City:</label>
                     <input class="input has-background-grey-light" type="text" id="search-value" placeholder="Search for a City"/>
                     <button class="button is-dark is-fullwidth">Button</button>
                 </form>
@@ -29,6 +28,10 @@
             <section id="data-container" class="column is-full-mobile is-two-thirds-tablet is-three-quarters-widescreen p-5">
                 <!-- Weather Data goes here -->
             </section>
+        </div>
+        <div class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-content"></div>
         </div>
     </main>  
 

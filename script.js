@@ -13,8 +13,6 @@ function formSubmit(event){
     
     cityName =""
 
-    forecastContainerEl.html("")
-    
     if(event.type === "click"){
         cityName = event.target.dataset.city
     }else if (event.type === "submit"){
@@ -22,15 +20,20 @@ function formSubmit(event){
     }
     
     if (!cityName.length){
-        alert("Please enter a city name.")
+        
+        renderModal("Please enter a city name.", "is-info")
         return
     }
 
+    
+    
     geoData(cityName)
     // clears out search input after logging it into City Name variable
     searchInputEl.val("")
 
 }
+
+
 
 
 // Fetch geolocation data (lat, lon)
@@ -49,11 +52,12 @@ function geoData(city){
             weatherData(data[0].lat, data[0].lon, data[0].name)
             })
         } else {
-            throw Error('Error: ' + response.statusText);
+            throw Error(response.statusText + ". We were not able to locate the city you searched for.");
         }
         })
         .catch(function (Error) {
-          alert('Unable to connect to Openweathermap Geocoding API.');
+            console.log(Error)
+            renderModal(Error, "is-warning")
         });
         // Api parameters
             // q=Name of city
@@ -70,23 +74,24 @@ function geoData(city){
 }
 
 function weatherData(lat, lon, cityN){
-    
     var requestUrl=`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&units=imperial&appid=${apiKey}`
-
+    
     fetch(requestUrl)
-        .then(function(response){
-            if (response.ok) {
+    .then(function(response){
+        if (response.ok) {
             return response.json()
-        .then(function(data){
+            .then(function(data){
+                forecastContainerEl.html("")
+                
                 renderCurrentForecast(data, cityN)
                 renderDailyForecast(data)
             })
         } else {
-            throw Error('Error: ' + response.statusText);
+            throw Error(response.statusText + ". We were not able to locate the weather data for the city you searched for.");
         }
         })
         .catch(function (Error) {
-          alert('Unable to connect to Openweathermap One Call API.');
+            renderModal(Error, "is-warning")
         });
         // API parameters
             // Latitude
@@ -190,6 +195,36 @@ function weatherIcon(iconCode){
     return iconURL
 }
 
+function renderModal(errorResponse, severity) {
+    
+    var modalType = ""
+    if(severity === "is-warning"){
+        modalType = "Warning"
+    } else {
+        modalType = "We need more information."
+    }
+
+    $('.modal-content').html(`
+                <article class="message ${severity}">
+                    <div class="message-header">
+                        <p>${modalType}</p>
+                        <button class="delete" aria-label="delete"></button>
+                    </div>
+                    <div class="message-body">
+                        ${errorResponse}
+                    </div>
+                </article>
+                `)
+    modalToggle()
+}
+
+function modalToggle(){
+    $('.modal').toggleClass('is-active')
+}
+
+
 searchFormEl.on('submit', formSubmit)
+
+$('.modal').on('click', modalToggle)
 
 searchHistoryEl.on('click', 'button', formSubmit)
