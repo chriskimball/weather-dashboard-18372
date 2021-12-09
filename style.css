@@ -37,3 +37,9 @@ main{
 .box:not(:last-child){
     margin-bottom: 0rem;
 }
+
+@media screen and (max-width:1024px) {
+    #daily-forecast{
+        flex-direction:column;
+    }
+}
