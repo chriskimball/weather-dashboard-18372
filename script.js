@@ -26,7 +26,6 @@ function formSubmit(event){
         return
     }
 
-    console.log(cityName)
     geoData(cityName)
     // clears out search input after logging it into City Name variable
     searchInputEl.val("")
@@ -77,10 +76,8 @@ function weatherData(lat, lon, cityN){
     fetch(requestUrl)
         .then(function(response){
             if (response.ok) {
-            console.log(response)
             return response.json()
         .then(function(data){
-                console.log(data)
                 renderCurrentForecast(data, cityN)
                 renderDailyForecast(data)
             })
@@ -120,7 +117,6 @@ function searchHistory(cityAttr) {
     
     for (i=0; i < searchHistoryEl[0].childElementCount; i++){
         if (searchHistoryEl[0].children[i].dataset.city === cityAttr){
-            console.log("match")
             return
         }
     }
@@ -138,7 +134,7 @@ function renderCurrentForecast(data, cityN) {
     
     var htmlTemplate = `
         <div id="current-forecast" class="box is-flex is-flex-direction-column">
-            <h2>${cityN} ${weatherInfo.current.dt} <img src="${iconURL}"></h2>
+            <h2>${cityN} ${moment(weatherInfo.current.dt, "X").format("M/D/YYYY")} <img src="${iconURL}"></h2>
             <p>Temp: ${weatherInfo.current.temp}</p>
             <p>Wind: ${weatherInfo.current.wind_speed}</p>
             <p>Humidity: ${weatherInfo.current.humidity}</p>
@@ -147,13 +143,13 @@ function renderCurrentForecast(data, cityN) {
         `
     forecastContainerEl.append(htmlTemplate)
 
-    console.log("data.current.dt",data.current.dt)
-    console.log("data.current.weather.description ",""+data.current.weather[0].description)
-    console.log("data.current.weather.icon ","http://openweathermap.org/img/wn/"+data.current.weather[0].icon+"@2x.png")
-    console.log("data.current.temp",data.current.temp)
-    console.log("data.current.wind_speed",data.current.wind_speed)
-    console.log("data.current.humidity",data.current.humidity)
-    console.log("data.current.humidity",data.current.uvi)
+    // console.log("data.current.dt",data.current.dt)
+    // console.log("data.current.weather.description ",""+data.current.weather[0].description)
+    // console.log("data.current.weather.icon ","http://openweathermap.org/img/wn/"+data.current.weather[0].icon+"@2x.png")
+    // console.log("data.current.temp",data.current.temp)
+    // console.log("data.current.wind_speed",data.current.wind_speed)
+    // console.log("data.current.humidity",data.current.humidity)
+    // console.log("data.current.humidity",data.current.uvi)
     console.log(data)
 };
 
@@ -162,13 +158,13 @@ function renderDailyForecast(data) {
     var weatherInfo = data
     
     var htmlTemplate = ""
+
     for (i=1; i <=5; i++){
-        console.log(i)
         var iconURL = weatherIcon(weatherInfo.daily[i].weather[0].icon)
         
         htmlTemplate += `
             <div class="box is-flex-direction-column has-background-grey-lighter column">
-                <h3>${weatherInfo.daily[i].dt}</h3>
+                <h3>${moment(weatherInfo.daily[i].dt,"X").format("M/D/YYYY")}</h3>
                 <img src="${iconURL}">
                 <p>Temp:${weatherInfo.daily[i].temp.day}</p>
                 <p>Wind:${weatherInfo.daily[i].wind_speed}</p>
@@ -176,37 +172,24 @@ function renderDailyForecast(data) {
             </div>    
             `
     }
-    console.log(htmlTemplate)
 
     var htmlContainer = `
-    <div class="p-5">
-        <h2 class="is-size-3">5 day forecast:</h2>
-        <div id="daily-forecast" class="p-5 is-flex-tablet columns">
-            ${htmlTemplate}
+        <div class="p-5">
+            <h2 class="is-size-3">5 day forecast:</h2>
+            <div id="daily-forecast" class="p-5 is-flex-tablet columns">
+                ${htmlTemplate}
+            </div>
         </div>
-    </div>
     `
-    console.log(htmlContainer)
     forecastContainerEl.append(htmlContainer)
 
-    // console.log("data.current.dt",data.current.dt)
-    // console.log("data.current.weather.description ",""+data.current.weather[0].description)
-    // console.log("data.current.weather.icon ","http://openweathermap.org/img/wn/"+data.current.weather[0].icon+"@2x.png")
-    // console.log("data.current.temp",data.current.temp)
-    // console.log("data.current.wind_speed",data.current.wind_speed)
-    // console.log("data.current.humidity",data.current.humidity)
-    // console.log("data.current.humidity",data.current.uvi)
-    // console.log(data)
 };
 
 function weatherIcon(iconCode){
-    var iconURL = "http://openweathermap.org/img/wn/"+ iconCode +"@2x.png"
-    console.log(iconURL)
+    iconURL = "http://openweathermap.org/img/wn/"+ iconCode +"@2x.png"
     return iconURL
 }
 
-// function renderDailyForecast(data)
-// Event listeners
 searchFormEl.on('submit', formSubmit)
 
 searchHistoryEl.on('click', 'button', formSubmit)
