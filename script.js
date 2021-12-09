@@ -2,14 +2,10 @@
 var searchFormEl = $('#search-input')
 var searchHistoryEl = $('#search-history')
 var searchInputEl = $('#search-value')
+var forecastContainerEl = $('#data-container')
 var cityName = ""
 
 var apiKey = "f30afd0d9c78b669a42b1299a1eee959"
-var forecastContainerEl = $('#data-container')
-// var currentForecastEl = $('#current-forecast')
-// var dailyForecastEl = $('#daily-forecast')
-
-// Fetch request functions
 
 function formSubmit(event){
     
@@ -17,6 +13,8 @@ function formSubmit(event){
     
     cityName =""
 
+    forecastContainerEl.html("")
+    
     if(event.type === "click"){
         cityName = event.target.dataset.city
     }else if (event.type === "submit"){
