@@ -38,7 +38,7 @@ main{
     margin-bottom: 0rem;
 }
 
-@media screen and (max-width:1024px) {
+@media screen and (max-width:1218px) {
     #daily-forecast{
         flex-direction:column;
     }
