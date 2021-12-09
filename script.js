@@ -5,9 +5,9 @@ var searchInputEl = $('#search-value')
 var cityName = ""
 
 var apiKey = "f30afd0d9c78b669a42b1299a1eee959"
-
-var currentForecastEl = $('#current-forecast')
-var dailyForecastEl = $('#daily-forecast')
+var forecastContainerEl = $('#data-container')
+// var currentForecastEl = $('#current-forecast')
+// var dailyForecastEl = $('#daily-forecast')
 
 // Fetch request functions
 
@@ -49,7 +49,7 @@ function geoData(city){
             
             searchHistory(data[0].name)
             // working with the data we provide
-            weatherData(data[0].lat, data[0].lon)
+            weatherData(data[0].lat, data[0].lon, data[0].name)
             })
         } else {
             throw Error('Error: ' + response.statusText);
@@ -72,7 +72,7 @@ function geoData(city){
             // appid={my custom api key}
 }
 
-function weatherData(lat, lon){
+function weatherData(lat, lon, cityN){
     
     var requestUrl=`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&units=imperial&appid=${apiKey}`
 
@@ -82,9 +82,9 @@ function weatherData(lat, lon){
             console.log(response)
             return response.json()
         .then(function(data){
+                console.log(data)
+                renderCurrentForecast(data, cityN)
             
-            console.log(data)
-
             })
         } else {
             throw Error('Error: ' + response.statusText);
@@ -133,7 +133,44 @@ function searchHistory(cityAttr) {
     searchHistoryEl.append(htmlTemplate)
 }
 
+function renderCurrentForecast(data, cityN) {
 
+    var weatherInfo = data
+    console.log(cityN)
+    // console.log(weatherInfo.current.weather[0].icon)
+    var iconURL = weatherIcon(weatherInfo.current.weather[0].icon)
+    console.log(iconURL)
+    
+    var htmlTemplate = `
+        <div id="current-forecast" class="box is-flex is-flex-direction-column">
+            <h2>${cityN} ${weatherInfo.current.dt} <img src="${iconURL}"></h2>
+            <p>Temp: ${weatherInfo.current.temp}</p>
+            <p>Wind: ${weatherInfo.current.wind_speed}</p>
+            <p>Humidity: ${weatherInfo.current.humidity}</p>
+            <p>UV Index: ${weatherInfo.current.uvi}</p>
+        </div>       
+        `
+    forecastContainerEl.append(htmlTemplate)
+
+    console.log("data.current.dt",data.current.dt)
+    console.log("data.current.weather.description ",""+data.current.weather[0].description)
+    console.log("data.current.weather.icon ","http://openweathermap.org/img/wn/"+data.current.weather[0].icon+"@2x.png")
+    console.log("data.current.temp",data.current.temp)
+    console.log("data.current.wind_speed",data.current.wind_speed)
+    console.log("data.current.humidity",data.current.humidity)
+    console.log("data.current.humidity",data.current.uvi)
+    console.log(data)
+};
+
+
+
+function weatherIcon(iconCode){
+    var iconURL = "http://openweathermap.org/img/wn/"+ iconCode +"@2x.png"
+    console.log(iconURL)
+    return iconURL
+}
+
+// function renderDailyForecast(data)
 // Event listeners
 searchFormEl.on('submit', formSubmit)
 
