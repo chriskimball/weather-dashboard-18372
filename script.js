@@ -39,7 +39,7 @@ function formSubmit(event){
 // Fetch geolocation data (lat, lon)
 function geoData(city){
     
-    var requestUrl=`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`
+    var requestUrl=`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`
 
     fetch(requestUrl)
         .then(function(response){
