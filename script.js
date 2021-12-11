@@ -44,37 +44,27 @@ function geoData(city){
     fetch(requestUrl)
         .then(function(response){
             if (response.ok) {
+                
             return response.json()
         .then(function(data){
             
             searchHistory(data[0].name)
             // working with the data we provide
-            weatherData(data[0].lat, data[0].lon, data[0].name)
+            weatherData(data)
             })
         } else {
             throw Error(response.statusText + ". We were not able to locate the city you searched for.");
         }
         })
         .catch(function (Error) {
-            console.log(Error)
             renderModal(Error, "is-warning")
         });
-        // Api parameters
-            // q=Name of city
-                // Name of the City
-                // Query strings start with ?
-                // Separate keys and value with equal sign =
-                // Separate key value pairs with ampersand &
-                // Looking for only city name
-        
-                // Save city name to history
-            // limit=5
-        
-            // appid={my custom api key}
+    
 }
 
-function weatherData(lat, lon, cityN){
-    var requestUrl=`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&units=imperial&appid=${apiKey}`
+function weatherData(locationData){
+    
+    var requestUrl=`https://api.openweathermap.org/data/2.5/onecall?lat=${locationData[0].lat}&lon=${locationData[0].lon}&exclude=minutely,hourly&units=imperial&appid=${apiKey}`
     
     fetch(requestUrl)
     .then(function(response){
@@ -83,38 +73,23 @@ function weatherData(lat, lon, cityN){
             .then(function(data){
                 forecastContainerEl.html("")
                 
-                renderCurrentForecast(data, cityN)
+                renderCurrentForecast(data, locationData[0])
                 renderDailyForecast(data)
+                return
             })
-        } else {
+        }  else {
             throw Error(response.statusText + ". We were not able to locate the weather data for the city you searched for.");
         }
         })
         .catch(function (Error) {
             renderModal(Error, "is-warning")
         });
-        // API parameters
-            // Latitude
-    
-            // Longitude
-    
-            // appid
-    
-            // units= imperial
-    
-                // configuring the units
-                    // Unit of measurement that is returned
-    
-            // exclude= minutely,hourly
+        
 }
 
 
 
 // Render html elements to page
-
-    // Render current day forecast
-
-    // Render 5 day forecast
 
     
     // Add search history button
@@ -139,7 +114,7 @@ function renderCurrentForecast(data, cityN) {
     
     var htmlTemplate = `
         <div id="current-forecast" class="box is-flex is-flex-direction-column">
-            <h2 class="is-size-2">${cityN} (${moment(weatherInfo.current.dt, "X").format("M/D/YYYY")})</h2>
+            <h2 class="is-size-2">${cityN.name}, ${cityN.state}, ${cityN.country} - (${moment(weatherInfo.current.dt, "X").format("M/D/YYYY")})</h2>
             <img src="${iconURL}" alt="${weatherInfo.current.weather[0].description}" style="width:100px">
             <p>Temp: ${weatherInfo.current.temp}</p>
             <p>Wind: ${weatherInfo.current.wind_speed}</p>
@@ -149,14 +124,6 @@ function renderCurrentForecast(data, cityN) {
         `
     forecastContainerEl.append(htmlTemplate)
 
-    // console.log("data.current.dt",data.current.dt)
-    // console.log("data.current.weather.description ",""+data.current.weather[0].description)
-    // console.log("data.current.weather.icon ","http://openweathermap.org/img/wn/"+data.current.weather[0].icon+"@2x.png")
-    // console.log("data.current.temp",data.current.temp)
-    // console.log("data.current.wind_speed",data.current.wind_speed)
-    // console.log("data.current.humidity",data.current.humidity)
-    // console.log("data.current.humidity",data.current.uvi)
-    console.log(data)
 };
 
 function renderDailyForecast(data) {
