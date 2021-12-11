@@ -43,6 +43,10 @@ main{
     background-color: aquamarine;
 }
 
+.button{
+    margin-top: 10px;
+}
+
 .box:not(:last-child){
     margin-bottom: 0rem;
 }
@@ -50,5 +54,9 @@ main{
 @media screen and (max-width:1218px) {
     #daily-forecast{
         flex-direction:column;
+    }
+
+    .button{
+        margin-top:5px;
     }
 }
