@@ -133,8 +133,10 @@ function renderCurrentForecast(data, cityN) {
         uvStyle = `style="color:yellow;font-weight:800;"`;
     } else if (weatherInfo.current.uvi <= 8) {
         uvStyle = `style="color:orange;font-weight:900;"`;
-    } else if (weatherInfo.current.uvi >= 10) {
+    } else if (weatherInfo.current.uvi <= 10) {
         uvStyle = `style="color:red;font-weight:1000;"`;
+    } else if (weatherInfo.current.uvi > 10) {
+        uvStyle = `style="color:purple;font-weight:1000;"`;
     };
 
     // Changes the favicon to the Weather Icon URL
