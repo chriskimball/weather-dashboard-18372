@@ -30,7 +30,6 @@ nav div{
 }
 
 main{
-    height:80%;
     margin-top:0px;
 }
 
@@ -41,6 +40,11 @@ main{
 
 #current-forecast{
     background-color: aquamarine;
+    
+}
+
+#main-container {
+    margin:15px;
 }
 
 .button{

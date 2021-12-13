@@ -53,7 +53,7 @@ function geoData(city){
             weatherData(data)
             })
         } else {
-            throw Error(response.statusText + ". We were not able to locate the city you searched for.");
+            throw Error("We were not able to locate the city you searched for.");
         }
         })
         .catch(function (Error) {
@@ -78,7 +78,7 @@ function weatherData(locationData){
                 return
             })
         }  else {
-            throw Error(response.statusText + ". We were not able to locate the weather data for the city you searched for.");
+            throw Error("We were not able to locate the weather data for the city you searched for.");
         }
         })
         .catch(function (Error) {
@@ -111,14 +111,16 @@ function renderCurrentForecast(data, cityN) {
 
     var weatherInfo = data
     var iconURL = weatherIcon(weatherInfo.current.weather[0].icon)
-    
+
+    $('#favicon')[0].href= iconURL
+
     var htmlTemplate = `
         <div id="current-forecast" class="box is-flex is-flex-direction-column">
             <h2 class="is-size-2">${cityN.name}, ${cityN.state}, ${cityN.country} - (${moment(weatherInfo.current.dt, "X").format("M/D/YYYY")})</h2>
             <img src="${iconURL}" alt="${weatherInfo.current.weather[0].description}" style="width:100px">
-            <p>Temp: ${weatherInfo.current.temp}</p>
-            <p>Wind: ${weatherInfo.current.wind_speed}</p>
-            <p>Humidity: ${weatherInfo.current.humidity}</p>
+            <p>Temp: ${weatherInfo.current.temp} °F</p>
+            <p>Wind: ${weatherInfo.current.wind_speed} mph</p>
+            <p>Humidity: ${weatherInfo.current.humidity}%</p>
             <p>UV Index: ${weatherInfo.current.uvi}</p>
         </div>       
         `
@@ -136,18 +138,18 @@ function renderDailyForecast(data) {
         var iconURL = weatherIcon(weatherInfo.daily[i].weather[0].icon)
         
         htmlTemplate += `
-            <div class="box is-flex-direction-column has-background-grey-lighter column has-text-centered m-5">
+            <div class="box is-flex-direction-column has-background-grey-lighter column has-text-centered m-1">
                 <h3>${moment(weatherInfo.daily[i].dt,"X").format("M/D/YYYY")}</h3>
                 <img src="${iconURL}" alt="${weatherInfo.daily[i].weather[0].description}">
-                <p>Temp: ${weatherInfo.daily[i].temp.day}</p>
-                <p>Wind: ${weatherInfo.daily[i].wind_speed}</p>
-                <p>Humidity: ${weatherInfo.daily[i].humidity}</p>
+                <p>Temp: ${weatherInfo.daily[i].temp.day} °F</p>
+                <p>Wind: ${weatherInfo.daily[i].wind_speed} mph</p>
+                <p>Humidity: ${weatherInfo.daily[i].humidity}%</p>
             </div>    
             `
     }
 
     var htmlContainer = `
-        <div class="p-5">
+        <div>
             <h2 class="is-size-3">5 day forecast:</h2>
             <div id="daily-forecast" class="p-5 is-flex-tablet columns">
                 ${htmlTemplate}
