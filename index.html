@@ -2,21 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link to Bulma framework stylesheet  -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <!-- Link to stylesheet -->
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Weather Dashboard</title>
+    <!-- Favicon url is blank until weather data is returned -->
     <link id="favicon" rel="shortcut icon" type="image/jpg" href=""/>
 </head>
 <body>
+    <!-- Nav bar element -->
     <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
         <div class="content has-text-centered">
             <h1 class="is-vcentered is-size-1">Weather App</h1>
         </div>
       </nav>
+    <!-- Main content of page -->
     <main id="main-container" class="container">
         <div class="columns is-flex-wrap-wrap">
+            <!-- Search input elements in this section -->
             <section id="input-container" class="column is-full-mobile is-one-third-tablet is-one-quarter-widescreen">
+                <!-- Search input form -->
                 <form id="search-input">
                     <label class="is-size-3" for="search-value">Search for a City:</label>
                     <input class="input has-background-grey-light" type="text" id="search-value" placeholder="Search for a City"/>
@@ -26,18 +33,24 @@
                     <!-- search history buttons go here -->
                 </div>
             </section>
+            
             <section id="data-container" class="column is-full-mobile is-two-thirds-tablet is-three-quarters-widescreen p-5">
                 <!-- Weather Data goes here -->
             </section>
         </div>
+        
+        <!-- Blank modal 'container' to handle errors from user input -->
         <div class="modal">
             <div class="modal-background"></div>
             <div class="modal-content"></div>
         </div>
     </main>  
 
+    <!-- Script link for jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Script link for moment.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <!-- JS Script link -->
     <script src="script.js"></script>
 </body>
 </html>

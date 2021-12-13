@@ -1,26 +1,19 @@
 html {
     height:100%;
+    background-color: rgb(203, 255, 251);
 }
 
 body{
     height:100%;
-        /* background-image: url('http://i.stack.imgur.com/kx8MT.gif');
-        background-size: cover;
-        
-        
-        
-        height: 100vh;
-        padding:0;
-        margin:0; */
-
+    
 }
 
+/* Navbar custom styling */
 nav{
     height:20%;
     display:flex;
     justify-content:center;
     align-items:center;
-    border:1px solid black;
 }
 
 nav div{
@@ -29,20 +22,19 @@ nav div{
     justify-content: center;
 }
 
+
+/* Resets the margin setting for main content element */
 main{
     margin-top:0px;
 }
 
+/* Styling for search input element */
 #search-input{
     padding-bottom:10px;
     border-bottom:1px solid black;
 }
 
-/* #current-forecast{
-    background-color: aquamarine;
-    
-} */
-
+/* Margin spacing for elements */
 #main-container {
     margin:15px;
 }
@@ -51,10 +43,12 @@ main{
     margin-top: 10px;
 }
 
+/* Resets bulma's default margin styling */
 .box:not(:last-child){
     margin-bottom: 0rem;
 }
 
+/* Media query to handle styling for screens smaller than 1218px */
 @media screen and (max-width:1218px) {
     #daily-forecast{
         flex-direction:column;
