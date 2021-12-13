@@ -133,7 +133,7 @@ function renderCurrentForecast(data, cityN) {
         uvStyle = `style="color:yellow;font-weight:800;"`;
     } else if (weatherInfo.current.uvi <= 8) {
         uvStyle = `style="color:orange;font-weight:900;"`;
-    } else if (weatherInfo.current.uvi <= 10) {
+    } else if (weatherInfo.current.uvi >= 10) {
         uvStyle = `style="color:red;font-weight:1000;"`;
     };
 
@@ -142,7 +142,7 @@ function renderCurrentForecast(data, cityN) {
 
     // Weather data points being added to HTML template literal
     var htmlTemplate = `
-        <div id="current-forecast" class="box is-flex is-flex-direction-column has-background-info">
+        <div id="current-forecast" class="box is-flex is-flex-direction-column has-background-grey-light">
             <h2 class="is-size-2">${cityN.name}, ${cityN.state}, ${cityN.country} - (${moment(weatherInfo.current.dt, "X").format("M/D/YYYY")})</h2>
             <img src="${iconURL}" alt="${weatherInfo.current.weather[0].description}" style="width:100px">
             <p>Temp: ${weatherInfo.current.temp} °F</p>
