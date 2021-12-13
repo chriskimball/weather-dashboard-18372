@@ -38,10 +38,10 @@ main{
     border-bottom:1px solid black;
 }
 
-#current-forecast{
+/* #current-forecast{
     background-color: aquamarine;
     
-}
+} */
 
 #main-container {
     margin:15px;

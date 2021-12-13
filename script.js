@@ -111,17 +111,31 @@ function renderCurrentForecast(data, cityN) {
 
     var weatherInfo = data
     var iconURL = weatherIcon(weatherInfo.current.weather[0].icon)
+    var uvStyle = ""
+    if (weatherInfo.current.uvi <= 2) {
+        uvStyle = `style="color:#48c78e;font-weight:500;"`
+
+    }   else if (weatherInfo.current.uvi <= 5) {
+        uvStyle = `style="color:yellow;font-weight:800;"`
+
+    } else if (weatherInfo.current.uvi <= 8) {
+        uvStyle = `style="color:orange;font-weight:900;"`
+
+    } else if (weatherInfo.current.uvi <= 10) {
+        uvStyle = `style="color:red;font-weight:1000;"`
+    }
+
 
     $('#favicon')[0].href= iconURL
 
     var htmlTemplate = `
-        <div id="current-forecast" class="box is-flex is-flex-direction-column">
+        <div id="current-forecast" class="box is-flex is-flex-direction-column has-background-info">
             <h2 class="is-size-2">${cityN.name}, ${cityN.state}, ${cityN.country} - (${moment(weatherInfo.current.dt, "X").format("M/D/YYYY")})</h2>
             <img src="${iconURL}" alt="${weatherInfo.current.weather[0].description}" style="width:100px">
             <p>Temp: ${weatherInfo.current.temp} °F</p>
             <p>Wind: ${weatherInfo.current.wind_speed} mph</p>
             <p>Humidity: ${weatherInfo.current.humidity}%</p>
-            <p>UV Index: ${weatherInfo.current.uvi}</p>
+            <p>UV Index: <span ${uvStyle}>${weatherInfo.current.uvi}</span></p>
         </div>       
         `
     forecastContainerEl.append(htmlTemplate)
