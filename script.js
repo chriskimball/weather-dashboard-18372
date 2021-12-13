@@ -17,15 +17,15 @@ function formSubmit(event){
 
     // If button clicked in search history use dataset, if submit from form element use the search input value
     if(event.type === "click"){
-        cityName = event.target.dataset.city
+        cityName = event.target.dataset.city;
     } else if (event.type === "submit"){
-        cityName = searchInputEl.val().trim()
+        cityName = searchInputEl.val().trim();
     };
     
     // If nothing is entered, render modal letting user know they need to provide more information
     if (!cityName.length) {    
-        renderModal("Please enter a city name.", "is-info")
-        return
+        renderModal("Please enter a city name.", "is-info");
+        return;
     };
 
     // Fetch geodata for city name from user input.
@@ -38,7 +38,7 @@ function formSubmit(event){
 // Fetch geolocation data (lat, lon)
 function geoData(city){
     
-    var requestUrl=`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`
+    var requestUrl=`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`;
 
     fetch(requestUrl)
         .then(function(response){
@@ -47,9 +47,9 @@ function geoData(city){
         .then(function(data){
             
             // Runs search history function to render button for city data that was retrieved form API GET request.
-            searchHistory(data[0].name)
+            searchHistory(data[0].name);
             // Passes geo data into the fetch weather data function.
-            weatherData(data)
+            weatherData(data);
             })
         } else {
             throw Error("We were not able to locate the city you searched for.");
@@ -57,7 +57,7 @@ function geoData(city){
         })
         .catch(function (Error) {
             // If error is caught render it in a modal with appropriate styling.
-            renderModal(Error, "is-warning")
+            renderModal(Error, "is-warning");
         }); 
 };
 
@@ -65,7 +65,7 @@ function geoData(city){
 function weatherData(locationData){
     
     // Request URL accesses the latitude and longitude from the location data
-    var requestUrl=`https://api.openweathermap.org/data/2.5/onecall?lat=${locationData[0].lat}&lon=${locationData[0].lon}&exclude=minutely,hourly&units=imperial&appid=${apiKey}`
+    var requestUrl=`https://api.openweathermap.org/data/2.5/onecall?lat=${locationData[0].lat}&lon=${locationData[0].lon}&exclude=minutely,hourly&units=imperial&appid=${apiKey}`;
     
     fetch(requestUrl)
     .then(function(response){
@@ -74,14 +74,14 @@ function weatherData(locationData){
         .then(function(data){
 
             // Clears any existing forcast from the forecast container so we can render the forecast for the new search
-            forecastContainerEl.html("")
+            forecastContainerEl.html("");
             
             // With the weather data we recieved pass that and the location data into the Render current forecast function
-            renderCurrentForecast(data, locationData[0])
+            renderCurrentForecast(data, locationData[0]);
 
             // Pass weather data into the render daily forecast function
-            renderDailyForecast(data)
-            return
+            renderDailyForecast(data);
+            return;
             })
         }  else {
             throw Error("We were not able to locate the weather data for the city you searched for.");
@@ -89,7 +89,7 @@ function weatherData(locationData){
         })
         .catch(function (Error) {
             // If error is caught render it in a modal with appropriate styling.
-            renderModal(Error, "is-warning")
+            renderModal(Error, "is-warning");
         });
         
 }
@@ -101,7 +101,7 @@ function searchHistory(cityAttr) {
     for (i=0; i < searchHistoryEl[0].childElementCount; i++){
         // If a button already exists return out of the function and do not create a duplicate button
         if (searchHistoryEl[0].children[i].dataset.city === cityAttr){
-            return
+            return;
         };
     };
     
@@ -209,9 +209,9 @@ function renderModal(errorResponse, severity) {
 
     // Conditional check if severity is warning the modal header will display 'Warning' or 'Need more info'
     if(severity === "is-warning"){
-        modalType = "Warning"
+        modalType = "Warning";
     } else {
-        modalType = "We need more information."
+        modalType = "We need more information.";
     };
 
     // Template literal with modal contents entered into modal container
@@ -232,7 +232,7 @@ function renderModal(errorResponse, severity) {
 
 // Toggles modal class is-active on or off
 function modalToggle(){
-    $('.modal').toggleClass('is-active')
+    $('.modal').toggleClass('is-active');
 };
 
 // Event listener for the search form
